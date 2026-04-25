@@ -1,0 +1,29 @@
+<div id="app" style="width:100%;max-width:none;">
+  <bridal-ai-advisor id="advisor"></bridal-ai-advisor>
+  <bridal-recommendations id="results" style="display:none"></bridal-recommendations>
+  <premium-appointment id="appointment" style="display:none"></premium-appointment>
+</div>
+
+<script type="module" src="/src/components/ai-advisor/ai-advisor.js"></script>
+<script type="module" src="/src/components/bridal-recommendations.js"></script>
+<script type="module" src="/src/components/premium-appointment.js"></script>
+
+<script>
+  const advisor = document.getElementById('advisor');
+  const results = document.getElementById('results');
+  const appointment = document.getElementById('appointment');
+
+  window.addEventListener('advisorCompleted', (e) => {
+    advisor.style.display = 'none';
+    results.style.display = 'block';
+    results.userChoices = e.detail;
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  window.addEventListener('startAppointment', () => {
+    results.style.display = 'none';
+    appointment.style.display = 'block';
+    appointment.userChoices = results.userChoices || {};
+    appointment.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
