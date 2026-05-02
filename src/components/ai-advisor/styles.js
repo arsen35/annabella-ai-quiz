@@ -8,8 +8,10 @@ export const advisorStyles = css`
     --ab-soft: #6f6b66;
     --ab-bg: #faf8f6;
     display: block;
-    width: 100%;
-    margin: 32px auto;
+    width: 100vw;
+    max-width: 100vw;
+    margin: 32px calc(50% - 50vw);
+    padding-inline: clamp(12px, 2.4vw, 36px);
     box-sizing: border-box;
     font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
     color: var(--ab-ink);
@@ -18,7 +20,7 @@ export const advisorStyles = css`
   *, *::before, *::after { box-sizing: border-box; }
 
   .advisor-wrapper {
-    width: var(--ab-max-width);
+    width: min(1560px, 100%);
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1.05fr 1fr;
@@ -120,7 +122,7 @@ export const advisorStyles = css`
   }
 
   .analyzing-screen {
-    width: var(--ab-max-width);
+    width: min(1560px, 100%);
     margin: 0 auto;
     min-height: 380px;
     border: 1px solid var(--ab-border);
@@ -141,7 +143,12 @@ export const advisorStyles = css`
   }
 
   @media (max-width: 920px) {
-    :host { margin: 0; }
+    :host {
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+      padding-inline: 0;
+    }
     .advisor-wrapper {
       width: 100%;
       border-left: none;

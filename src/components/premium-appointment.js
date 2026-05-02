@@ -18,45 +18,48 @@ export class PremiumAppointment extends LitElement {
   static styles = css`
     :host {
       display: block;
-      width: min(1400px, 90vw);
-      margin: 28px auto;
+      width: 100vw;
+      max-width: 100vw;
+      margin: 24px calc(50% - 50vw);
+      padding-inline: clamp(12px, 2.4vw, 36px);
       color: #1a1a1a;
       font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
     }
     *, *::before, *::after { box-sizing: border-box; }
-    .shell { background: #fff; border: 1px solid #ece9e6; }
-    .modal-header { padding: 30px; border-bottom: 1px solid #f2efec; text-align: center; }
-    .modal-content { display: flex; min-height: 550px; }
-    .selection-side { flex: 1.2; padding: 30px; border-right: 1px solid #f2efec; }
-    .info-side { flex: 1; padding: 30px; background: #faf8f6; }
-    h2 { font-size: 18px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 20px; }
-    .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-weight: 600; }
-    .nav-btn { cursor: pointer; padding: 5px 15px; border: 1px solid #eee; background: #fff; }
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; text-align: center; }
-    .day-name { font-size: 11px; color: #9f9a94; padding: 10px 0; font-weight: 600; }
-    .day { padding: 12px 0; font-size: 14px; cursor: pointer; border: 1px solid transparent; }
-    .day:hover:not(.disabled) { background: #f5f5f5; }
-    .day.selected { background: #000; color: #fff; }
+    .shell { width: min(1560px, 100%); margin: 0 auto; background: #fff; border: 1px solid #ece9e6; }
+    .modal-header { padding: 26px; border-bottom: 1px solid #f2efec; text-align: center; }
+    .modal-content { display: flex; min-height: 560px; }
+    .selection-side { flex: 1.2; padding: 28px; border-right: 1px solid #f2efec; }
+    .info-side { flex: 1; padding: 28px; background: linear-gradient(180deg, #fbfaf8 0%, #f8f6f3 100%); }
+    h2 { font-size: 16px; font-weight: 500; text-transform: uppercase; letter-spacing: .16em; margin: 0 0 16px; }
+    .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; font-size: 11px; }
+    .nav-btn { cursor: pointer; width: 34px; height: 34px; border: 1px solid #e8e3de; background: #fff; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; text-align: center; }
+    .day-name { font-size: 10px; color: #9f9a94; padding: 8px 0; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; }
+    .day { padding: 10px 0; font-size: 13px; cursor: pointer; border: 1px solid transparent; transition: all .2s ease; }
+    .day:hover:not(.disabled) { background: #f5f2ef; border-color: #eee8e2; }
+    .day.selected { background: #111; color: #fff; border-color: #111; }
     .day.disabled { color: #ddd; cursor: not-allowed; text-decoration: line-through; }
-    .slots-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
-    .slot { border: 1px solid #eee; padding: 14px; font-size: 13px; cursor: pointer; display: flex; justify-content: space-between; background: #fff; }
-    .slot.selected { border-color: #000; background: #000; color: #fff; }
+    .slots-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .slot { border: 1px solid #e7e3df; padding: 13px 14px; font-size: 12px; cursor: pointer; display: flex; justify-content: space-between; background: #fff; text-transform: uppercase; letter-spacing: .07em; }
+    .slot.selected { border-color: #111; background: #111; color: #fff; }
     .slot.booked { background: #f2f2f2; color: #bbb; cursor: not-allowed; opacity: .7; pointer-events: none; border-style: dashed; }
     .status-tag { font-size: 10px; font-weight: 700; }
     .form-group { margin-bottom: 20px; }
-    label { display: block; font-size: 11px; font-weight: 600; color: #807a73; margin-bottom: 8px; text-transform: uppercase; }
+    label { display: block; font-size: 10px; font-weight: 600; color: #807a73; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .1em; }
     .std-input { width: 100%; padding: 14px; border: 1px solid #e0e0e0; font-size: 14px; outline: none; }
     .std-input:focus { border-color: #000; }
     .phone-row { width: 100%; display: flex; border: 1px solid #e0e0e0; background: #fff; overflow: hidden; min-height: 50px; }
     .country-box { display: flex; align-items: center; padding: 0 12px; background: #fcfcfc; border-right: 1px solid #eee; min-width: 108px; }
     .country-box select { width: 100%; border: none; background: transparent; font-size: 14px; font-weight: 500; outline: none; }
     .phone-input { border: none; min-width: 0; width: 100%; padding: 0 12px; font-size: 14px; outline: none; }
-    .footer-nav { padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid #f2efec; }
-    .btn-black { background: #000; color: #fff; padding: 16px 30px; border: none; cursor: pointer; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .footer-nav { padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid #f2efec; }
+    .btn-black { background: #111; color: #fff; padding: 14px 26px; border: 1px solid #111; cursor: pointer; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; transition: all .2s ease; }
+    .btn-black:hover:not(:disabled) { background: #fff; color: #111; }
     .btn-black:disabled { background: #eee; color: #aaa; cursor: not-allowed; }
 
     @media (max-width: 900px) {
-      :host { width: 100%; margin: 0; }
+      :host { width: 100%; max-width: 100%; margin: 0; padding-inline: 0; }
       .shell { border-left: none; border-right: none; }
       .modal-content { flex-direction: column; }
       .selection-side,
